@@ -32,7 +32,7 @@ def clean_version(version: str) -> str:
 
 setup(
     name='debian-package-installer',
-    version='0.1.2',
+    version='1.0.0',
     description='Debian package installer',
     author='Ferenc Nandor Janky & Attila Gombos',
     author_email='info@effective-range.com',
