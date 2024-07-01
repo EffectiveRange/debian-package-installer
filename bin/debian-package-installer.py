@@ -8,7 +8,7 @@ import os
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, Namespace
 from pathlib import Path
 
-import apt
+from apt.cache import Cache
 from aptsources.sourceslist import SourcesList
 from context_logger import get_logger, setup_logging
 from package_downloader import FileDownloader, DebDownloader, AssetDownloader, RepositoryProvider, \
@@ -43,7 +43,7 @@ def main() -> None:
     deb_downloader = DebDownloader(repository_provider, asset_downloader, file_downloader)
 
     config = _get_absolute_path(arguments.package_config)
-    apt_cache = apt.Cache()
+    apt_cache = Cache()
     apt_installer = AptInstaller(apt_cache)
     deb_provider = DebProvider(apt_cache)
     deb_installer = DebInstaller(apt_cache, deb_downloader, deb_provider)

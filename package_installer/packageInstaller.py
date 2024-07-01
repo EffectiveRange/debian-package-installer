@@ -1,7 +1,6 @@
 # SPDX-FileCopyrightText: 2024 Ferenc Nandor Janky <ferenj@effective-range.com>
 # SPDX-FileCopyrightText: 2024 Attila Gombos <attila.gombos@effective-range.com>
 # SPDX-License-Identifier: MIT
-
 from typing import Optional
 
 from apt import Cache
@@ -29,9 +28,11 @@ class PackageInstaller(object):
             log.info('Adding apt sources')
             self._source_adder.add_sources()
 
-        config_list = self._json_loader.load_list(self._config_path, PackageConfig)
+        log.info('Updating apt cache')
+        self._apt_cache.open()
+        self._apt_cache.update()
 
-        self._initialize_cache()
+        config_list = self._json_loader.load_list(self._config_path, PackageConfig)
 
         for config in config_list:
             log.info('Installing package', package=config.package, version=config.version)
@@ -45,9 +46,3 @@ class PackageInstaller(object):
                 continue
 
             log.error('Failed to install package', package=config.package)
-
-    def _initialize_cache(self) -> None:
-        self._apt_cache.update()
-        self._apt_cache.open()
-        self._apt_cache.upgrade()
-        self._apt_cache.commit()

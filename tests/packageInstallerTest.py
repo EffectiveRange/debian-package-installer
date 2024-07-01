@@ -5,6 +5,7 @@ from unittest.mock import MagicMock
 from apt import Cache
 from context_logger import setup_logging
 from package_downloader import PackageConfig, IJsonLoader
+
 from package_installer import PackageInstaller, IAptInstaller, IDebInstaller, ISourceAdder
 
 
@@ -26,10 +27,10 @@ class PackageInstallerTest(TestCase):
         package_installer.install_packages()
 
         # Then
-        apt_cache.update.assert_called_once()
-        apt_cache.open.assert_called_once()
-        apt_cache.update.assert_called_once()
-        apt_cache.commit.assert_called_once()
+        apt_cache.assert_has_calls([
+            mock.call.open(),
+            mock.call.update()
+        ])
 
     def test_install_packages_from_apt_repository(self):
         # Given
