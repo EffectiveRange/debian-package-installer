@@ -29,7 +29,8 @@ class PackageInstallerTest(TestCase):
         # Then
         apt_cache.assert_has_calls([
             mock.call.open(),
-            mock.call.update()
+            mock.call.update(),
+            mock.call.open()
         ])
 
     def test_install_packages_from_apt_repository(self):
