@@ -31,6 +31,7 @@ class PackageInstaller(object):
         log.info('Updating apt cache')
         self._apt_cache.open()
         self._apt_cache.update()
+        self._apt_cache.open()
 
         config_list = self._json_loader.load_list(self._config_path, PackageConfig)
 
