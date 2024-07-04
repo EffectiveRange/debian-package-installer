@@ -64,7 +64,7 @@ $ bin/debian-package-installer.py --help
 usage: debian-package-installer.py [-h] [-f LOG_FILE] [-l LOG_LEVEL] [-s SOURCE_CONFIG] [-d DOWNLOAD] package_config
 
 positional arguments:
-  package_config        package config JSON file
+  package_config        package config JSON file or URL
 
 options:
   -h, --help            show this help message and exit
@@ -73,7 +73,7 @@ options:
   -l LOG_LEVEL, --log-level LOG_LEVEL
                         logging level (default: info)
   -s SOURCE_CONFIG, --source-config SOURCE_CONFIG
-                        source config JSON file (default: None)
+                        source config JSON file or URL (default: None)
   -d DOWNLOAD, --download DOWNLOAD
                         package download location (default: /tmp/packages)
 ```
@@ -147,21 +147,27 @@ Example source configuration (example `source-config.json` config file content):
 Output:
 
 ```commandline
-2024-06-30T15:43:13.356457Z [info     ] Starting package installer     [PackageInstallerApp] app_version=none application=package-installer arguments={'log_file': None, 'log_level': 'info', 'source_config': 'build/sources.json', 'download': '/tmp/packages', 'package_config': 'build/packages.json'} hostname=Legion7iPro
-2024-06-30T15:43:13.458664Z [info     ] Adding apt sources             [PackageInstaller] app_version=none application=package-installer hostname=Legion7iPro
-2024-06-30T15:43:13.658914Z [info     ] Adding apt source              [SourceAdder] app_version=none application=package-installer hostname=Legion7iPro source=deb http://aptrepo.effective-range.com stable main
-2024-06-30T15:43:13.659251Z [info     ] Key not found, trying to add   [SourceAdder] app_version=none application=package-installer hostname=Legion7iPro key_id=C1AEE2EDBAEC37595801DDFAE15BC62117A4E0F3 source=deb http://aptrepo.effective-range.com stable main
-2024-06-30T15:43:13.659409Z [info     ] Downloading key file           [SourceAdder] app_version=none application=package-installer hostname=Legion7iPro key_id=C1AEE2EDBAEC37595801DDFAE15BC62117A4E0F3 source=deb http://aptrepo.effective-range.com stable main url=http://aptrepo.effective-range.com/dists/stable/public.key
-2024-06-30T15:43:13.659539Z [info     ] Downloading file               [FileDownloader] app_version=none application=package-installer file_name=effective-range.pub headers=[] hostname=Legion7iPro url=http://aptrepo.effective-range.com/dists/stable/public.key
-2024-06-30T15:43:13.733118Z [info     ] Downloaded file                [FileDownloader] app_version=none application=package-installer file=/tmp/packages/effective-range.pub hostname=Legion7iPro
-2024-06-30T15:43:13.733936Z [info     ] Adding key from key file       [SourceAdder] app_version=none application=package-installer hostname=Legion7iPro key_file=/tmp/packages/effective-range.pub key_id=C1AEE2EDBAEC37595801DDFAE15BC62117A4E0F3 source=deb http://aptrepo.effective-range.com stable main
-2024-06-30T15:43:14.183844Z [info     ] Key added                      [SourceAdder] app_version=none application=package-installer hostname=Legion7iPro key_id=C1AEE2EDBAEC37595801DDFAE15BC62117A4E0F3 source=deb http://aptrepo.effective-range.com stable main
-2024-06-30T15:43:15.050601Z [info     ] Installing package             [PackageInstaller] app_version=none application=package-installer hostname=Legion7iPro package=apt-server version=1.1.4
-2024-06-30T15:43:15.051703Z [info     ] Installing package from repository [AptInstaller] app_version=none application=package-installer hostname=Legion7iPro package=apt-server version=1.1.4
+2024-07-04T07:16:37.793684Z [info     ] Starting package installer     [PackageInstallerApp] app_version=1.0.0 application=debian-package-installer arguments={'log_file': None, 'log_level': 'info', 'source_config': 'build/source-config.json', 'download': '/tmp/packages', 'package_config': 'build/package-config.json'} hostname=Legion7iPro
+2024-07-04T07:16:37.794110Z [info     ] Local file path provided, skipping download [FileDownloader] app_version=1.0.0 application=debian-package-installer file=/home/attilagombos/EffectiveRange/debian-package-installer/build/source-config.json hostname=Legion7iPro
+2024-07-04T07:16:37.906907Z [info     ] Local file path provided, skipping download [FileDownloader] app_version=1.0.0 application=debian-package-installer file=/home/attilagombos/EffectiveRange/debian-package-installer/build/package-config.json hostname=Legion7iPro
+2024-07-04T07:16:37.907573Z [info     ] Adding apt sources             [PackageInstaller] app_version=1.0.0 application=debian-package-installer hostname=Legion7iPro
+2024-07-04T07:16:38.148153Z [info     ] Adding apt source              [SourceAdder] app_version=1.0.0 application=debian-package-installer hostname=Legion7iPro source=deb http://aptrepo.effective-range.com stable main
+2024-07-04T07:16:38.148625Z [info     ] Key not found, trying to add   [SourceAdder] app_version=1.0.0 application=debian-package-installer hostname=Legion7iPro key_id=C1AEE2EDBAEC37595801DDFAE15BC62117A4E0F3 source=deb http://aptrepo.effective-range.com stable main
+2024-07-04T07:16:38.148831Z [info     ] Adding key from key server     [SourceAdder] app_version=1.0.0 application=debian-package-installer hostname=Legion7iPro key_id=C1AEE2EDBAEC37595801DDFAE15BC62117A4E0F3 key_server=keyserver.ubuntu.com source=deb http://aptrepo.effective-range.com stable main
+gpg: WARNING: "--secret-keyring" is an obsolete option - it has no effect
+gpg: keybox '/tmp/tmpj0fdcfku/pubring.gpg' created
+gpg: /tmp/tmpj0fdcfku/trustdb.gpg: trustdb created
+gpg: key E15BC62117A4E0F3: public key "Test User <test.user@example.com>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+2024-07-04T07:16:39.041188Z [info     ] Key added                      [SourceAdder] app_version=1.0.0 application=debian-package-installer hostname=Legion7iPro key_id=C1AEE2EDBAEC37595801DDFAE15BC62117A4E0F3 source=deb http://aptrepo.effective-range.com stable main
+2024-07-04T07:16:39.041686Z [info     ] Updating apt cache             [PackageInstaller] app_version=1.0.0 application=debian-package-installer hostname=Legion7iPro
+2024-07-04T07:16:39.795518Z [info     ] Installing package             [PackageInstaller] app_version=1.0.0 application=debian-package-installer hostname=Legion7iPro package=apt-server version=None
+2024-07-04T07:16:39.796189Z [info     ] Installing package from repository [AptInstaller] app_version=1.0.0 application=debian-package-installer hostname=Legion7iPro package=apt-server version=1.1.4
 Selecting previously unselected package apt-server.
 (Reading database ... 84451 files and directories currently installed.)
 Preparing to unpack .../apt-server_1.1.4_all.deb ...
 Unpacking apt-server (1.1.4) ...
 Setting up apt-server (1.1.4) ...
-2024-06-30T15:43:16.760278Z [info     ] Package installed successfully [AptInstaller] app_version=none application=package-installer hostname=Legion7iPro package=apt-server version=1.1.4
+2024-07-04T07:16:41.277165Z [info     ] Package installed successfully [AptInstaller] app_version=1.0.0 application=debian-package-installer hostname=Legion7iPro package=apt-server version=1.1.4
 ```
