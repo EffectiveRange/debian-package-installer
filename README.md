@@ -47,7 +47,7 @@ pip install .
 
 2. Install from distribution file
     ```bash
-    pip install dist/debian_package_installer-1.0.0.tar.gz
+    pip install dist/debian-package-installer-1.0.0.tar.gz
     ```
 
 3. Install from GitHub repository

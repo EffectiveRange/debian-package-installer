@@ -39,8 +39,7 @@ setup(
     packages=['package_installer'],
     scripts=['bin/debian-package-installer.py'],
     package_data={'package_installer': ['py.typed']},
-    install_requires=['PyGithub', 'requests', 'pydantic',
-                      f'python-apt@git+https://salsa.debian.org/apt-team/python-apt@{get_python_apt_version()}',
+    install_requires=[f'python-apt@git+https://salsa.debian.org/apt-team/python-apt@{get_python_apt_version()}',
                       'python-context-logger@git+https://github.com/EffectiveRange/python-context-logger.git@latest',
                       'debian-package-downloader'
                       '@git+https://github.com/EffectiveRange/debian-package-downloader.git@latest']
