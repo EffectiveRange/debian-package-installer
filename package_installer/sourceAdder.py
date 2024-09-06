@@ -5,8 +5,8 @@
 from urllib.parse import urlparse
 
 from aptsources.sourceslist import SourcesList, SourceEntry
+from common_utility import IJsonLoader, IFileDownloader
 from context_logger import get_logger
-from package_downloader import IFileDownloader, IJsonLoader
 
 from package_installer import SourceConfig, IKeyAdder
 
@@ -21,8 +21,14 @@ class ISourceAdder(object):
 
 class SourceAdder(ISourceAdder):
 
-    def __init__(self, config_path: str, json_loader: IJsonLoader, sources_list: SourcesList, key_adder: IKeyAdder,
-                 file_downloader: IFileDownloader) -> None:
+    def __init__(
+        self,
+        config_path: str,
+        json_loader: IJsonLoader,
+        sources_list: SourcesList,
+        key_adder: IKeyAdder,
+        file_downloader: IFileDownloader,
+    ) -> None:
         self._config_path = config_path
         self._json_loader = json_loader
         self._sources_list = sources_list

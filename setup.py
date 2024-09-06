@@ -6,8 +6,9 @@ from setuptools import setup
 
 
 def get_python_apt_version() -> str:
-    proc = subprocess.Popen(['dpkg-query', '-W', '-f', '${Version}', 'python3-apt'],
-                            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    proc = subprocess.Popen(
+        ['dpkg-query', '-W', '-f', '${Version}', 'python3-apt'], stdout=subprocess.PIPE, stderr=subprocess.PIPE
+    )
 
     out, _ = proc.communicate()
 
@@ -20,7 +21,10 @@ def get_python_apt_version() -> str:
                 version = 'a1ecf380cb6688a239c30f2786424f864e9b32af'
             return version
 
-    logging.error('Failed to get python-apt version. Please install python3-apt debian package.')
+    logging.error(
+        'Failed to get python-apt version. Please install python3-apt and python-apt-dev debian packages:\n'
+        '"sudo apt install -y python3-apt python-apt-dev"'
+    )
 
     exit(1)
 
@@ -39,8 +43,9 @@ setup(
     packages=['package_installer'],
     scripts=['bin/debian-package-installer.py'],
     package_data={'package_installer': ['py.typed']},
-    install_requires=[f'python-apt@git+https://salsa.debian.org/apt-team/python-apt@{get_python_apt_version()}',
-                      'python-context-logger@git+https://github.com/EffectiveRange/python-context-logger.git@latest',
-                      'debian-package-downloader'
-                      '@git+https://github.com/EffectiveRange/debian-package-downloader.git@latest']
+    install_requires=[
+        f'python-apt@git+https://salsa.debian.org/apt-team/python-apt@{get_python_apt_version()}',
+        'python-context-logger@git+https://github.com/EffectiveRange/python-context-logger.git@latest',
+        'debian-package-downloader@git+https://github.com/EffectiveRange/debian-package-downloader.git@latest',
+    ],
 )
