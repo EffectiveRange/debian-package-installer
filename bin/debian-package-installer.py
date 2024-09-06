@@ -9,9 +9,9 @@ from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, Namespace
 
 from apt.cache import Cache
 from aptsources.sourceslist import SourcesList
+from common_utility import JsonLoader, SessionProvider, FileDownloader
 from context_logger import get_logger, setup_logging
-from package_downloader import FileDownloader, DebDownloader, AssetDownloader, RepositoryProvider, \
-    SessionProvider, JsonLoader
+from package_downloader import DebDownloader, AssetDownloader, RepositoryProvider
 
 from package_installer import PackageInstaller, DebInstaller, AptInstaller, DebProvider, SourceAdder, KeyAdder
 
@@ -48,8 +48,9 @@ def main() -> None:
 
     package_config_path = file_downloader.download(arguments.package_config, skip_if_exists=False)
 
-    package_installer = PackageInstaller(package_config_path, json_loader,
-                                         apt_cache, apt_installer, deb_installer, source_adder)
+    package_installer = PackageInstaller(
+        package_config_path, json_loader, apt_cache, apt_installer, deb_installer, source_adder
+    )
 
     package_installer.install_packages()
 

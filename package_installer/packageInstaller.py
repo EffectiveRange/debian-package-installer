@@ -1,11 +1,13 @@
 # SPDX-FileCopyrightText: 2024 Ferenc Nandor Janky <ferenj@effective-range.com>
 # SPDX-FileCopyrightText: 2024 Attila Gombos <attila.gombos@effective-range.com>
 # SPDX-License-Identifier: MIT
+
 from typing import Optional
 
 from apt import Cache
+from common_utility import IJsonLoader
 from context_logger import get_logger
-from package_downloader import IJsonLoader, PackageConfig
+from package_downloader import PackageConfig
 
 from package_installer import IAptInstaller, IDebInstaller, ISourceAdder
 
@@ -14,8 +16,15 @@ log = get_logger('PackageInstaller')
 
 class PackageInstaller(object):
 
-    def __init__(self, config_path: str, json_loader: IJsonLoader, apt_cache: Cache, apt_installer: IAptInstaller,
-                 deb_installer: IDebInstaller, source_adder: Optional[ISourceAdder] = None) -> None:
+    def __init__(
+        self,
+        config_path: str,
+        json_loader: IJsonLoader,
+        apt_cache: Cache,
+        apt_installer: IAptInstaller,
+        deb_installer: IDebInstaller,
+        source_adder: Optional[ISourceAdder] = None,
+    ) -> None:
         self._config_path = config_path
         self._json_loader = json_loader
         self._apt_cache = apt_cache

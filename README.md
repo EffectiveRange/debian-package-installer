@@ -1,3 +1,7 @@
+
+[![Test and Release](https://github.com/EffectiveRange/debian-package-installer/actions/workflows/test_and_release.yml/badge.svg)](https://github.com/EffectiveRange/debian-package-installer/actions/workflows/test_and_release.yml)
+[![Coverage badge](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/EffectiveRange/debian-package-installer/python-coverage-comment-action-data/endpoint.json)](https://htmlpreview.github.io/?https://github.com/EffectiveRange/debian-package-installer/blob/python-coverage-comment-action-data/htmlcov/index.html)
+
 # debian-package-installer
 
 Debian package installer that supports installing from APT repository, .deb file URL and .deb GitHub release asset
@@ -59,7 +63,7 @@ pip install .
 
 ### Command line reference
 
-```commandline
+```bash
 $ bin/debian-package-installer.py --help
 usage: debian-package-installer.py [-h] [-f LOG_FILE] [-l LOG_LEVEL] [-s SOURCE_CONFIG] [-d DOWNLOAD] package_config
 
@@ -80,7 +84,7 @@ options:
 
 ### Example
 
-```commandline
+```bash
 $ bin/debian-package-installer.py ~/config/package-config.json
 ```
 
@@ -115,7 +119,7 @@ Example configuration (example `package-config.json` config file content):
 
 Needs root privileges to add APT keys:
 
-```commandline
+```bash
 $ sudo bin/debian-package-installer.py ~/config/package-config.json -s ~/config/source-config.json
 ```
 
@@ -146,7 +150,7 @@ Example source configuration (example `source-config.json` config file content):
 
 Output:
 
-```commandline
+```bash
 2024-07-04T07:16:37.793684Z [info     ] Starting package installer     [PackageInstallerApp] app_version=1.0.0 application=debian-package-installer arguments={'log_file': None, 'log_level': 'info', 'source_config': 'build/source-config.json', 'download': '/tmp/packages', 'package_config': 'build/package-config.json'} hostname=Legion7iPro
 2024-07-04T07:16:37.794110Z [info     ] Local file path provided, skipping download [FileDownloader] app_version=1.0.0 application=debian-package-installer file=/home/attilagombos/EffectiveRange/debian-package-installer/build/source-config.json hostname=Legion7iPro
 2024-07-04T07:16:37.906907Z [info     ] Local file path provided, skipping download [FileDownloader] app_version=1.0.0 application=debian-package-installer file=/home/attilagombos/EffectiveRange/debian-package-installer/build/package-config.json hostname=Legion7iPro
