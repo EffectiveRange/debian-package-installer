@@ -3,8 +3,9 @@ from unittest import TestCase, mock
 from unittest.mock import MagicMock
 
 from apt import Cache
+from common_utility.jsonLoader import IJsonLoader
 from context_logger import setup_logging
-from package_downloader import PackageConfig, IJsonLoader
+from package_downloader import PackageConfig
 
 from package_installer import PackageInstaller, IAptInstaller, IDebInstaller, ISourceAdder
 
@@ -27,11 +28,7 @@ class PackageInstallerTest(TestCase):
         package_installer.install_packages()
 
         # Then
-        apt_cache.assert_has_calls([
-            mock.call.open(),
-            mock.call.update(),
-            mock.call.open()
-        ])
+        apt_cache.assert_has_calls([mock.call.open(), mock.call.update(), mock.call.open()])
 
     def test_install_packages_from_apt_repository(self):
         # Given
@@ -43,10 +40,16 @@ class PackageInstallerTest(TestCase):
         package_installer.install_packages()
 
         # Then
-        apt_installer.install.assert_has_calls([
-            mock.call(config_list[0]), mock.call().__bool__(),
-            mock.call(config_list[1]), mock.call().__bool__(),
-            mock.call(config_list[2]), mock.call().__bool__()])
+        apt_installer.install.assert_has_calls(
+            [
+                mock.call(config_list[0]),
+                mock.call().__bool__(),
+                mock.call(config_list[1]),
+                mock.call().__bool__(),
+                mock.call(config_list[2]),
+                mock.call().__bool__(),
+            ]
+        )
 
     def test_install_packages_from_dep_package(self):
         # Given
@@ -59,14 +62,19 @@ class PackageInstallerTest(TestCase):
         package_installer.install_packages()
 
         # Then
-        apt_installer.install.assert_has_calls([
-            mock.call(config_list[0]),
-            mock.call(config_list[1]),
-            mock.call(config_list[2])])
-        deb_installer.install.assert_has_calls([
-            mock.call(config_list[0]), mock.call().__bool__(),
-            mock.call(config_list[1]), mock.call().__bool__(),
-            mock.call(config_list[2]), mock.call().__bool__()])
+        apt_installer.install.assert_has_calls(
+            [mock.call(config_list[0]), mock.call(config_list[1]), mock.call(config_list[2])]
+        )
+        deb_installer.install.assert_has_calls(
+            [
+                mock.call(config_list[0]),
+                mock.call().__bool__(),
+                mock.call(config_list[1]),
+                mock.call().__bool__(),
+                mock.call(config_list[2]),
+                mock.call().__bool__(),
+            ]
+        )
 
     def test_install_packages_fail_to_install(self):
         # Given
@@ -80,14 +88,12 @@ class PackageInstallerTest(TestCase):
         package_installer.install_packages()
 
         # Then
-        apt_installer.install.assert_has_calls([
-            mock.call(config_list[0]),
-            mock.call(config_list[1]),
-            mock.call(config_list[2])])
-        deb_installer.install.assert_has_calls([
-            mock.call(config_list[0]),
-            mock.call(config_list[1]),
-            mock.call(config_list[2])])
+        apt_installer.install.assert_has_calls(
+            [mock.call(config_list[0]), mock.call(config_list[1]), mock.call(config_list[2])]
+        )
+        deb_installer.install.assert_has_calls(
+            [mock.call(config_list[0]), mock.call(config_list[1]), mock.call(config_list[2])]
+        )
 
     def test_install_packages_with_mixed_outcome(self):
         # Given
@@ -101,21 +107,14 @@ class PackageInstallerTest(TestCase):
         package_installer.install_packages()
 
         # Then
-        apt_installer.install.assert_has_calls([
-            mock.call(config_list[0]),
-            mock.call(config_list[1]),
-            mock.call(config_list[2])])
-        deb_installer.install.assert_has_calls([
-            mock.call(config_list[1]),
-            mock.call(config_list[2])])
+        apt_installer.install.assert_has_calls(
+            [mock.call(config_list[0]), mock.call(config_list[1]), mock.call(config_list[2])]
+        )
+        deb_installer.install.assert_has_calls([mock.call(config_list[1]), mock.call(config_list[2])])
 
 
 def create_config_list():
-    return [
-        PackageConfig(package='package1'),
-        PackageConfig(package='package2'),
-        PackageConfig(package='package3')
-    ]
+    return [PackageConfig(package='package1'), PackageConfig(package='package2'), PackageConfig(package='package3')]
 
 
 def create_components(config_list):

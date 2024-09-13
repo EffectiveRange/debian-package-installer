@@ -5,7 +5,8 @@
 from urllib.parse import urlparse
 
 from aptsources.sourceslist import SourcesList, SourceEntry
-from common_utility import IJsonLoader, IFileDownloader
+from common_utility import IFileDownloader
+from common_utility.jsonLoader import IJsonLoader
 from context_logger import get_logger
 
 from package_installer import SourceConfig, IKeyAdder
