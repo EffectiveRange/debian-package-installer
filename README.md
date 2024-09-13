@@ -8,9 +8,9 @@
 | package\_installer/aptInstaller.py     |       45 |        0 |       10 |        0 |    100% |           |
 | package\_installer/debInstaller.py     |       63 |        0 |       18 |        3 |     96% |69->exit, 76->73, 86->83 |
 | package\_installer/packageInstaller.py |       32 |        0 |        8 |        1 |     98% |    36->40 |
-| package\_installer/sourceAdder.py      |       56 |        0 |       12 |        0 |    100% |           |
+| package\_installer/sourceAdder.py      |       57 |        0 |       12 |        0 |    100% |           |
 | package\_installer/sourceConfig.py     |        8 |        0 |        0 |        0 |    100% |           |
-|                              **TOTAL** |  **211** |    **0** |   **48** |    **4** | **98%** |           |
+|                              **TOTAL** |  **212** |    **0** |   **48** |    **4** | **98%** |           |
 
 
 ## Setup coverage badge
