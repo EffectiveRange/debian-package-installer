@@ -3,8 +3,9 @@ from unittest import TestCase
 from unittest.mock import MagicMock
 
 from aptsources.sourceslist import SourcesList
+from common_utility.jsonLoader import IJsonLoader
 from context_logger import setup_logging
-from package_downloader import IJsonLoader, IFileDownloader
+from package_downloader import IFileDownloader
 
 from package_installer import IKeyAdder, SourceAdder, SourceConfig
 
@@ -54,25 +55,29 @@ class SourceAdderTest(TestCase):
 def create_components():
     json_loader = MagicMock(spec=IJsonLoader)
     json_loader.load_list.return_value = [
-        SourceConfig(name='source1', source='deb http://url1 stable main',
-                     key_id='0123456789ABCDEF012345671111111111111111',
-                     key_file='http://url1/dists/stable/public1.key',
-                     key_server='keyserver.test1.com'),
-        SourceConfig(name='source2', source='deb http://url2 stable main',
-                     key_id='0123456789ABCDEF012345672222222222222222',
-                     key_file='http://url2/dists/stable/public2.key'),
-        SourceConfig(name='source3', source='deb http://url3 stable main',
-                     key_id='0123456789ABCDEF012345673333333333333333',
-                     key_file='/path/to/public3.key')
+        SourceConfig(
+            name='source1',
+            source='deb http://url1 stable main',
+            key_id='0123456789ABCDEF012345671111111111111111',
+            key_file='http://url1/dists/stable/public1.key',
+            key_server='keyserver.test1.com',
+        ),
+        SourceConfig(
+            name='source2',
+            source='deb http://url2 stable main',
+            key_id='0123456789ABCDEF012345672222222222222222',
+            key_file='http://url2/dists/stable/public2.key',
+        ),
+        SourceConfig(
+            name='source3',
+            source='deb http://url3 stable main',
+            key_id='0123456789ABCDEF012345673333333333333333',
+            key_file='/path/to/public3.key',
+        ),
     ]
     sources_list = MagicMock(spec=SourcesList)
     key_adder = MagicMock(spec=IKeyAdder)
-    key_adder.get_available_key_ids.side_effect = [
-        [],
-        ['1111111111111111'],
-        ['2222222222222222'],
-        ['3333333333333333']
-    ]
+    key_adder.get_available_key_ids.side_effect = [[], ['1111111111111111'], ['2222222222222222'], ['3333333333333333']]
     file_downloader = MagicMock(spec=IFileDownloader)
     file_downloader.download.return_value = '/path/to/public2.key'
 
